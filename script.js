@@ -17,7 +17,10 @@ let weather = {
     const { temp, humidity } = data.main;
     const { icon, description } = data.weather[0];
 
-    console.log(name, speed, temp, humidity, icon, description);
+    const fahrenheit = (temp * 9) / 5 + 32;
+
+    console.log(temp, fahrenheit);
+
     document.querySelector(".city").innerText = "Weather in " + name;
     document.querySelector(".icon").src =
       "https://openweathermap.org/img/wn/" + icon + ".png";
@@ -29,16 +32,23 @@ let weather = {
     document.querySelector(".weather").classList.remove("loading");
     document.body.style.backgroundImage =
       "url('https://source.unsplash.com/1600x900/?" + name + "')";
+
+    return fahrenheit;
   },
   search: function () {
     this.fetchWeather(document.querySelector(".search-bar").value);
   },
 };
 
-document.querySelector(".search button").addEventListener("click", function () {
-  weather.search();
-});
 
+//invoking search method when click search icon
+document
+  .querySelector(".search .search-btn")
+  .addEventListener("click", function () {
+    weather.search();
+  });
+
+  //invoking search method when press enter button
 document
   .querySelector(".search-bar")
   .addEventListener("keyup", function (event) {
